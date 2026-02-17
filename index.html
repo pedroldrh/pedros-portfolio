@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEDRO LIRON DE ROBLES — Full-Stack Developer & AI Engineer</title>
+<meta name="description" content="Portfolio of Pedro Liron de Robles. Full-stack developer and AI engineer at Washington and Lee University.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0a0a0a;
+  --fg: #e8e8e8;
+  --accent: #ff2020;
+  --border: #e8e8e8;
+  --dim: #666;
+  --font: 'Space Mono', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  cursor: crosshair;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero-element { opacity: 1 !important; }
+  .section-reveal { opacity: 1 !important; transform: none !important; }
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--fg);
+  text-decoration: none;
+  cursor: crosshair;
+}
+
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── SKIP LINK ── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background: var(--accent);
+  color: var(--bg);
+  padding: 8px 16px;
+  z-index: 1000;
+  font-family: var(--font);
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* ── HEADER / NAV ── */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 3px solid var(--fg);
+  padding: 0 32px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -1px;
+}
+
+nav {
+  display: flex;
+  gap: 0;
+}
+
+nav a {
+  padding: 16px 16px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border-left: 1px solid var(--dim);
+  display: block;
+  transition: 0s;
+}
+
+nav a:hover, nav a.active {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+nav a:last-child {
+  border-right: 1px solid var(--dim);
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: 2px solid var(--fg);
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  cursor: crosshair;
+  transition: 0s;
+}
+
+.menu-toggle:hover {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+/* ── HERO ── */
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  position: relative;
+}
+
+.hero-frame {
+  border: 3px solid var(--fg);
+  padding: 48px;
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+}
+
+.hero-frame::before {
+  content: '┌──────────────────────────────────────┐';
+  position: absolute;
+  top: -24px;
+  left: 24px;
+  font-size: 0.75rem;
+  color: var(--dim);
+  letter-spacing: 2px;
+}
+
+.hero-frame::after {
+  content: '└──────────────────────────────────────┘';
+  position: absolute;
+  bottom: -24px;
+  right: 24px;
+  font-size: 0.75rem;
+  color: var(--dim);
+  letter-spacing: 2px;
+}
+
+.hero-label {
+  font-size: 0.85rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+  font-weight: 700;
+}
+
+.hero-name {
+  font-size: clamp(3.5rem, 10vw, 8rem);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -3px;
+  margin-bottom: 32px;
+}
+
+.hero-tagline {
+  font-size: 1.25rem;
+  color: var(--dim);
+  margin-bottom: 16px;
+}
+
+.hero-tagline .cursor {
+  display: inline-block;
+  width: 10px;
+  height: 1.25rem;
+  background: var(--accent);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.hero-location {
+  font-size: 0.85rem;
+  color: var(--dim);
+  font-style: italic;
+}
+
+.hero-element {
+  opacity: 0;
+}
+
+.hero-element.visible {
+  opacity: 1;
+}
+
+/* ── SECTIONS ── */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.section {
+  padding: 120px 0 80px;
+  border-top: 3px solid var(--fg);
+}
+
+.section-header {
+  font-size: 0.85rem;
+  color: var(--accent);
+  letter-spacing: 3px;
+  font-weight: 700;
+  margin-bottom: 48px;
+}
+
+.section-reveal {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.section-reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0s, transform 0s;
+}
+
+/* ── ABOUT ── */
+.about-text {
+  max-width: 720px;
+}
+
+.about-text p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 24px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.about-text p::before {
+  content: '>';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ── PROJECTS ── */
+.projects-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.project {
+  border: 2px solid var(--fg);
+  padding: 32px;
+  transition: 0s;
+  display: block;
+  margin-bottom: -2px;
+}
+
+.project:hover {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.project:hover .project-num,
+.project:hover .project-subtitle,
+.project:hover .project-desc,
+.project:hover .project-tag {
+  color: var(--bg);
+  border-color: var(--bg);
+}
+
+.project:nth-child(odd) {
+  margin-left: 0;
+}
+
+.project:nth-child(even) {
+  margin-left: 60px;
+}
+
+.project-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.project-num {
+  font-size: 0.8rem;
+  color: var(--dim);
+  font-weight: 700;
+}
+
+.project-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.project-subtitle {
+  font-size: 0.85rem;
+  color: var(--dim);
+  font-style: italic;
+}
+
+.project-desc {
+  margin: 16px 0;
+  color: var(--fg);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.project-tag {
+  font-size: 0.75rem;
+  border: 1px solid var(--dim);
+  padding: 2px 8px;
+  color: var(--dim);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* ── SKILLS ── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+.skill-group {
+  border-left: 4px solid var(--accent);
+  padding: 24px;
+  border-bottom: 1px solid var(--dim);
+}
+
+.skill-group-title {
+  font-size: 0.8rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.skill-group ul {
+  list-style: none;
+}
+
+.skill-group li {
+  font-size: 0.9rem;
+  padding: 4px 0;
+  color: var(--fg);
+}
+
+.skill-group li::before {
+  content: '— ';
+  color: var(--dim);
+}
+
+/* ── CONTACT ── */
+.contact-prompt {
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.contact-prompt::before {
+  content: '>';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  border: 2px solid var(--fg);
+  font-size: 1rem;
+  font-weight: 700;
+  transition: 0s;
+  margin-bottom: -2px;
+  max-width: 500px;
+}
+
+.contact-link:hover {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.contact-link-label {
+  color: var(--accent);
+  font-size: 0.85rem;
+}
+
+.contact-link:hover .contact-link-label {
+  color: var(--bg);
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 3px solid var(--fg);
+  padding: 32px;
+  text-align: center;
+  margin-top: 80px;
+}
+
+footer p {
+  font-size: 0.75rem;
+  color: var(--dim);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  header {
+    padding: 0 16px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  nav {
+    display: none;
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    border-bottom: 3px solid var(--fg);
+    flex-direction: column;
+  }
+
+  nav.open {
+    display: flex;
+  }
+
+  nav a {
+    border-left: none;
+    border-bottom: 1px solid var(--dim);
+    padding: 14px 24px;
+  }
+
+  nav a:last-child {
+    border-right: none;
+  }
+
+  .hero-frame {
+    padding: 32px 24px;
+  }
+
+  .hero-frame::before,
+  .hero-frame::after {
+    display: none;
+  }
+
+  .hero-name {
+    letter-spacing: -2px;
+  }
+
+  main {
+    padding: 0 16px;
+  }
+
+  .section {
+    padding: 80px 0 60px;
+  }
+
+  .project:nth-child(even) {
+    margin-left: 0;
+  }
+
+  .project {
+    padding: 24px;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-frame {
+    padding: 24px 16px;
+  }
+
+  .hero-tagline {
+    font-size: 1rem;
+  }
+
+  .section {
+    padding: 64px 0 48px;
+  }
+
+  .project-name {
+    font-size: 1.25rem;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-link {
+    max-width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+<!-- ── HEADER ── -->
+<header>
+  <span class="logo">PEDRO_></span>
+  <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">[=]</button>
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <a href="#about">[ABOUT]</a>
+    <a href="#projects">[PROJECTS]</a>
+    <a href="#skills">[SKILLS]</a>
+    <a href="#contact">[CONTACT]</a>
+  </nav>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero" aria-label="Introduction">
+  <div class="hero-frame">
+    <p class="hero-label hero-element">> FULL-STACK DEVELOPER & AI ENGINEER</p>
+    <h1 class="hero-name hero-element">PEDRO<br>LIRON DE<br>ROBLES</h1>
+    <p class="hero-tagline hero-element">I build things that work_<span class="cursor"></span></p>
+    <p class="hero-location hero-element">// Math & Econ Student @ Washington and Lee University</p>
+  </div>
+</section>
+
+<!-- ── MAIN ── -->
+<main id="main-content">
+
+  <!-- ABOUT -->
+  <section id="about" class="section section-reveal" aria-label="About">
+    <p class="section-header">00 ABOUT</p>
+    <div class="about-text">
+      <p>Full-stack developer and AI engineer who builds tools that solve real problems. I work across the entire stack — from React Native frontends to Node.js backends, from AI-powered voice agents to autonomous coding workflows. I bridge the gap between understanding how things work under the hood and shipping fast with modern AI tooling.</p>
+      <p>Currently a Math & Econ student at Washington and Lee University, splitting my time between coursework and building software. I care about clean architecture, honest interfaces, and systems that don't waste people's time.</p>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section section-reveal" aria-label="Projects">
+    <p class="section-header">01 PROJECTS</p>
+    <div class="projects-grid">
+
+      <div class="project">
+        <div class="project-header">
+          <span class="project-num">[001]</span>
+          <h3 class="project-name">SHANNON</h3>
+          <span class="project-subtitle">AI Penetration Testing Agent</span>
+        </div>
+        <p class="project-desc">An autonomous AI agent that performs penetration testing using Claude's reasoning capabilities. Orchestrates multi-step security assessments with Temporal.io workflows, browser automation via Playwright, and containerized execution environments.</p>
+        <div class="project-tags">
+          <span class="project-tag">TypeScript</span>
+          <span class="project-tag">Node.js</span>
+          <span class="project-tag">Temporal.io</span>
+          <span class="project-tag">Claude Agent SDK</span>
+          <span class="project-tag">Playwright</span>
+          <span class="project-tag">Docker</span>
+        </div>
+      </div>
+
+      <a href="https://github.com/pedroldrh/coop-exchange" class="project" target="_blank" rel="noopener">
+        <div class="project-header">
+          <span class="project-num">[002]</span>
+          <h3 class="project-name">FOODIE</h3>
+          <span class="project-subtitle">Campus Meal Swipe Sharing</span>
+        </div>
+        <p class="project-desc">A PWA that lets Washington & Lee students share unused meal swipes. Real-time availability for two campus dining locations, email OTP authentication, and a budget system where each swipe is valued at $11.50.</p>
+        <div class="project-tags">
+          <span class="project-tag">React Native</span>
+          <span class="project-tag">Expo SDK 54</span>
+          <span class="project-tag">Supabase</span>
+          <span class="project-tag">Vercel</span>
+        </div>
+      </a>
+
+      <div class="project">
+        <div class="project-header">
+          <span class="project-num">[003]</span>
+          <h3 class="project-name">INDUSTRIAL VOICE AGENT</h3>
+          <span class="project-subtitle">AI Voice Agent for Distributors</span>
+        </div>
+        <p class="project-desc">An AI-powered voice agent built for industrial distribution companies. Handles inbound calls with natural conversation, processes orders, and integrates with existing inventory systems through WebSocket connections for real-time updates.</p>
+        <div class="project-tags">
+          <span class="project-tag">Node.js</span>
+          <span class="project-tag">Express</span>
+          <span class="project-tag">Twilio</span>
+          <span class="project-tag">OpenAI</span>
+          <span class="project-tag">Claude SDK</span>
+          <span class="project-tag">WebSockets</span>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-header">
+          <span class="project-num">[004]</span>
+          <h3 class="project-name">AI CLOTHING STARTUP</h3>
+          <span class="project-subtitle">AI-Powered E-Commerce</span>
+        </div>
+        <p class="project-desc">An e-commerce platform with AI-driven product recommendations and virtual try-on capabilities. Built with Next.js and React 19, featuring Stripe payment processing and Supabase for real-time inventory management.</p>
+        <div class="project-tags">
+          <span class="project-tag">Next.js</span>
+          <span class="project-tag">React 19</span>
+          <span class="project-tag">TypeScript</span>
+          <span class="project-tag">Stripe</span>
+          <span class="project-tag">Supabase</span>
+          <span class="project-tag">OpenAI</span>
+        </div>
+      </div>
+
+      <a href="https://github.com/pedroldrh/elohi" class="project" target="_blank" rel="noopener">
+        <div class="project-header">
+          <span class="project-num">[005]</span>
+          <h3 class="project-name">ELOHI</h3>
+          <span class="project-subtitle">Full-Stack Application</span>
+        </div>
+        <p class="project-desc">A full-stack web application built with Next.js and React 19. Features a polished UI with ShadCN components, Supabase backend for data persistence and auth, and transactional email capabilities via Resend.</p>
+        <div class="project-tags">
+          <span class="project-tag">Next.js</span>
+          <span class="project-tag">React 19</span>
+          <span class="project-tag">TypeScript</span>
+          <span class="project-tag">Supabase</span>
+          <span class="project-tag">ShadCN UI</span>
+          <span class="project-tag">Resend</span>
+        </div>
+      </a>
+
+      <div class="project">
+        <div class="project-header">
+          <span class="project-num">[006]</span>
+          <h3 class="project-name">LIGNUM</h3>
+          <span class="project-subtitle">Express Web Application</span>
+        </div>
+        <p class="project-desc">A server-rendered web application built with Express and EJS templating. Features file upload handling with Multer, SQLite3 database for lightweight persistence, and a TailwindCSS-styled frontend.</p>
+        <div class="project-tags">
+          <span class="project-tag">Node.js</span>
+          <span class="project-tag">Express</span>
+          <span class="project-tag">SQLite3</span>
+          <span class="project-tag">EJS</span>
+          <span class="project-tag">Multer</span>
+          <span class="project-tag">TailwindCSS</span>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-header">
+          <span class="project-num">[007]</span>
+          <h3 class="project-name">WATER RIGHTS ENGINE</h3>
+          <span class="project-subtitle">Water Rights Management</span>
+        </div>
+        <p class="project-desc">A system for managing and analyzing water rights data. Processes complex regulatory information and provides tools for tracking allocations, compliance, and usage across jurisdictions.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section section-reveal" aria-label="Skills">
+    <p class="section-header">02 STACK</p>
+    <div class="skills-grid">
+
+      <div class="skill-group">
+        <p class="skill-group-title">// FRONTEND</p>
+        <ul>
+          <li>React</li>
+          <li>React Native</li>
+          <li>Next.js</li>
+          <li>TypeScript</li>
+          <li>TailwindCSS</li>
+          <li>Expo</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <p class="skill-group-title">// BACKEND</p>
+        <ul>
+          <li>Node.js</li>
+          <li>Express</li>
+          <li>Supabase</li>
+          <li>SQLite</li>
+          <li>PostgreSQL</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <p class="skill-group-title">// AI & APIS</p>
+        <ul>
+          <li>OpenAI API</li>
+          <li>Claude SDK</li>
+          <li>Claude Agent SDK</li>
+          <li>Twilio</li>
+          <li>Stripe</li>
+          <li>Resend</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <p class="skill-group-title">// DEVOPS</p>
+        <ul>
+          <li>Docker</li>
+          <li>Temporal.io</li>
+          <li>Vercel</li>
+          <li>Git/GitHub</li>
+          <li>Playwright</li>
+          <li>WebSockets</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section section-reveal" aria-label="Contact">
+    <p class="section-header">03 CONTACT</p>
+    <p class="contact-prompt">Ready to collaborate? Get in touch.</p>
+    <div class="contact-links">
+      <a href="mailto:plironderobles@mail.wlu.edu" class="contact-link">
+        <span class="contact-link-label">[EMAIL]</span>
+        plironderobles@mail.wlu.edu
+      </a>
+      <a href="https://github.com/pedroldrh" class="contact-link" target="_blank" rel="noopener">
+        <span class="contact-link-label">[GITHUB]</span>
+        github.com/pedroldrh
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>&copy; <span id="year"></span> PEDRO LIRON DE ROBLES</p>
+  <p>BUILT WITH VANILLA HTML/CSS/JS. NO FRAMEWORKS.</p>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  // ── Year injection ──
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ── Reduced motion check ──
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ── Boot sequence ──
+  var heroElements = document.querySelectorAll('.hero-element');
+  if (prefersReducedMotion) {
+    heroElements.forEach(function(el) { el.classList.add('visible'); });
+  } else {
+    heroElements.forEach(function(el, i) {
+      setTimeout(function() {
+        el.classList.add('visible');
+      }, 300 + i * 150);
+    });
+  }
+
+  // ── IntersectionObserver for sections ──
+  var sections = document.querySelectorAll('.section-reveal');
+  if ('IntersectionObserver' in window && !prefersReducedMotion) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    sections.forEach(function(s) { observer.observe(s); });
+  } else {
+    sections.forEach(function(s) { s.classList.add('in-view'); });
+  }
+
+  // ── Mobile menu toggle ──
+  var menuBtn = document.querySelector('.menu-toggle');
+  var nav = document.getElementById('nav');
+
+  menuBtn.addEventListener('click', function() {
+    var isOpen = nav.classList.toggle('open');
+    menuBtn.textContent = isOpen ? '[X]' : '[=]';
+    menuBtn.setAttribute('aria-expanded', isOpen);
+  });
+
+  // Close menu when clicking a nav link
+  nav.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      nav.classList.remove('open');
+      menuBtn.textContent = '[=]';
+      menuBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // ── Active nav tracking ──
+  var navLinks = document.querySelectorAll('nav a');
+  var sectionEls = document.querySelectorAll('main .section');
+
+  function updateActiveNav() {
+    var scrollY = window.scrollY + 100;
+    var current = '';
+    sectionEls.forEach(function(section) {
+      if (section.offsetTop <= scrollY) {
+        current = section.getAttribute('id');
+      }
+    });
+    navLinks.forEach(function(link) {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  updateActiveNav();
+
+})();
+</script>
+</body>
+</html>
