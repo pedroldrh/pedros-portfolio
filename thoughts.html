@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thoughts — Pedro Liron de Robles</title>
+<meta name="description" content="Essays on building, life, and the entrepreneurial journey.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,5 95,72.5 5,72.5' fill='none' stroke='%234f46e5' stroke-width='3'/><polygon points='27.5,72.5 50,5 5,72.5' fill='%23818cf8' opacity='0.3'/><polygon points='72.5,72.5 95,72.5 50,5' fill='%23fb923c' opacity='0.3'/><polygon points='50,72.5 27.5,38.75 72.5,38.75' fill='%2322c55e' opacity='0.3'/><polygon points='38.75,55.6 50,38.75 27.5,38.75' fill='%23e11d48' opacity='0.5'/><polygon points='61.25,55.6 72.5,38.75 50,38.75' fill='%23eab308' opacity='0.5'/><polygon points='50,72.5 38.75,55.6 61.25,55.6' fill='%230ea5e9' opacity='0.5'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #fafaf9;
+  --fg: #1a1a1a;
+  --muted: #737373;
+  --accent: #1a1a1a;
+  --border: #e5e5e5;
+  --card-bg: #ffffff;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --serif: 'Newsreader', Georgia, serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--fg); text-decoration: none; }
+a:hover { opacity: 0.7; }
+a:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+
+/* ── NAV ── */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250, 250, 249, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 32px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: -0.02em;
+}
+
+nav {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+nav a {
+  font-size: 0.875rem;
+  color: var(--muted);
+  transition: color 0.15s;
+}
+
+nav a:hover { color: var(--fg); opacity: 1; }
+
+/* ── PAGE ── */
+.page-container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 80px 32px 120px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  color: var(--muted);
+  margin-bottom: 48px;
+  transition: color 0.15s;
+}
+
+.back-link:hover { color: var(--fg); opacity: 1; }
+
+.page-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.page-subtitle {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin-bottom: 48px;
+}
+
+/* ── ARTICLE LIST ── */
+.article-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.article-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px 0;
+  border-top: 1px solid var(--border);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.article-item:last-child {
+  border-bottom: 1px solid var(--border);
+}
+
+.article-item:hover { opacity: 0.7; }
+
+.article-meta {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.article-title {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.article-excerpt {
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.article-arrow {
+  color: var(--muted);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 28px;
+  transition: transform 0.2s;
+}
+
+.article-item:hover .article-arrow {
+  transform: translateX(3px);
+  color: var(--fg);
+}
+
+/* ── ARTICLE VIEW ── */
+.article-view { display: none; }
+.article-view.active { display: block; }
+.article-list-view.hidden { display: none; }
+
+.article-header {
+  margin-bottom: 40px;
+}
+
+.article-header .article-meta {
+  margin-bottom: 12px;
+}
+
+.article-header h1 {
+  font-family: var(--serif);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.article-body p {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--fg);
+  margin-bottom: 24px;
+}
+
+.article-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px;
+  text-align: center;
+}
+
+footer p {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+@media (max-width: 768px) {
+  .nav-inner { padding: 0 20px; }
+  .page-container { padding: 60px 20px 100px; }
+  nav { gap: 20px; }
+}
+
+@media (max-width: 480px) {
+  .article-title { font-size: 1.1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<header>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-name">Pedro Liron de Robles</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="https://www.instagram.com/pedroldrh/" target="_blank" rel="noopener" aria-label="Instagram" style="color:#E4405F"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      <a href="https://x.com/pedroldrh" target="_blank" rel="noopener" aria-label="X (Twitter)"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+    </nav>
+  </div>
+</header>
+
+<!-- ── CONTENT ── -->
+<div class="page-container">
+
+  <!-- Article list -->
+  <div class="article-list-view" id="listView">
+    <a href="index.html" class="back-link">&larr; Back home</a>
+    <h1 class="page-title">Thoughts</h1>
+    <p class="page-subtitle">Essays on building, life, and the entrepreneurial journey.</p>
+
+    <div class="article-list">
+      <div class="article-item" onclick="showArticle('comparing')">
+        <div>
+          <p class="article-meta">Mar 2026 &middot; 4 min read</p>
+          <h2 class="article-title">Comparing Yourself</h2>
+          <p class="article-excerpt">Why the entrepreneurial journey is uniquely yours — and why measuring your chapter 1 against someone else's chapter 20 will always be a losing game.</p>
+        </div>
+        <span class="article-arrow">&rarr;</span>
+      </div>
+
+      <div class="article-item" onclick="showArticle('precious')">
+        <div>
+          <p class="article-meta">Feb 2026 &middot; 3 min read</p>
+          <h2 class="article-title">Life is Precious</h2>
+          <p class="article-excerpt">A reflection on urgency, gratitude, and why building something meaningful matters more than building something big.</p>
+        </div>
+        <span class="article-arrow">&rarr;</span>
+      </div>
+
+      <div class="article-item" onclick="showArticle('hope')">
+        <div>
+          <p class="article-meta">Jan 2026 &middot; 5 min read</p>
+          <h2 class="article-title">Hope for the Future</h2>
+          <p class="article-excerpt">What being part of the entrepreneurial community taught me about optimism, agency, and why the next generation of builders has every reason to be hopeful.</p>
+        </div>
+        <span class="article-arrow">&rarr;</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comparing Yourself -->
+  <div class="article-view" id="comparing">
+    <a href="#" class="back-link" onclick="showList(); return false;">&larr; Back to all</a>
+    <div class="article-header">
+      <p class="article-meta">Mar 2026 &middot; 4 min read</p>
+      <h1>Comparing Yourself</h1>
+    </div>
+    <div class="article-body">
+      <p>It's easy to scroll through LinkedIn and feel like everyone around you is crushing it — raising rounds, launching products, getting featured. But what you're seeing is a highlight reel, not the full story.</p>
+      <p>Every founder I've met has a version of this: the late nights that didn't make the pitch deck, the pivots no one posted about, the moments of genuine doubt. Comparison strips all of that away and leaves you measuring your behind-the-scenes against someone else's front stage.</p>
+      <p>The antidote isn't to stop paying attention. It's to use what you see as fuel, not as a verdict. Ask "what can I learn from that?" instead of "why am I not there yet?" The timelines are different. The starting points are different. The goals should be different.</p>
+      <p>At W&L, I've watched classmates build things at completely different paces — and the ones who stuck with their own path, who stayed honest about what they actually wanted, are the ones doing the most interesting work today.</p>
+      <p>Your only real competition is who you were last semester. Keep building.</p>
+    </div>
+  </div>
+
+  <!-- Life is Precious -->
+  <div class="article-view" id="precious">
+    <a href="#" class="back-link" onclick="showList(); return false;">&larr; Back to all</a>
+    <div class="article-header">
+      <p class="article-meta">Feb 2026 &middot; 3 min read</p>
+      <h1>Life is Precious</h1>
+    </div>
+    <div class="article-body">
+      <p>There's a quote I keep coming back to: "The days are long but the years are short." College makes this painfully obvious. One moment you're a freshman figuring out where Evans Dining Hall is, and the next you're walking across the Colonnade for the last time.</p>
+      <p>That compression of time changes how you think about what's worth doing. Not everything needs to be a startup. Not everything needs to scale. But everything you choose to spend time on should matter to you — genuinely, not performatively.</p>
+      <p>I think about this when I see people chasing things they don't actually care about, just because the path looks impressive from the outside. Life is too short and too uncertain for that.</p>
+      <p>Build things that make you feel alive. Work with people who make you better. Say the thing you've been meaning to say. The window is smaller than you think, and that's not a reason to panic — it's a reason to be intentional.</p>
+      <p>Precious doesn't mean fragile. It means valuable. Treat it that way.</p>
+    </div>
+  </div>
+
+  <!-- Hope for the Future -->
+  <div class="article-view" id="hope">
+    <a href="#" class="back-link" onclick="showList(); return false;">&larr; Back to all</a>
+    <div class="article-header">
+      <p class="article-meta">Jan 2026 &middot; 5 min read</p>
+      <h1>Hope for the Future</h1>
+    </div>
+    <div class="article-body">
+      <p>It's fashionable to be cynical right now. The economy is uncertain, AI is reshaping entire industries overnight, and the news cycle is exhausting. But I've never been more optimistic — and it's because of the people I've been surrounded by.</p>
+      <p>I've met people who started companies in recessions, who pivoted when their industries disappeared, who built something from nothing because they saw a problem worth solving. That pattern — seeing a problem and choosing to act — is the most hopeful thing I know.</p>
+      <p>The tools available to our generation are staggering. You can build a product, reach customers, and iterate in weeks instead of years. You can learn from people across the world without leaving Lexington. The barriers to starting have never been lower.</p>
+      <p>That doesn't mean it's easy. It means the bottleneck has shifted from access to action. The question isn't "can I build this?" anymore — it's "will I?"</p>
+      <p>I believe the answer, for the people in this community, is yes. I've seen it in the pitch competitions, in the late-night whiteboard sessions, in the DMs that turn into partnerships. The future isn't something that happens to us. It's something we build.</p>
+      <p>And if you're reading this and feeling uncertain about your own path — good. Uncertainty means you're at the edge of something new. That's exactly where the interesting stuff happens.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>&copy; <span id="year"></span> Pedro Liron de Robles</p>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Check hash on load
+  var hash = window.location.hash.replace('#', '');
+  if (hash && document.getElementById(hash)) {
+    showArticle(hash);
+  }
+})();
+
+function showArticle(id) {
+  document.getElementById('listView').classList.add('hidden');
+  document.querySelectorAll('.article-view').forEach(function(el) {
+    el.classList.remove('active');
+  });
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+  history.pushState(null, '', '#' + id);
+}
+
+function showList() {
+  document.querySelectorAll('.article-view').forEach(function(el) {
+    el.classList.remove('active');
+  });
+  document.getElementById('listView').classList.remove('hidden');
+  window.scrollTo(0, 0);
+  history.pushState(null, '', 'thoughts.html');
+}
+
+window.addEventListener('popstate', function() {
+  var hash = window.location.hash.replace('#', '');
+  if (hash && document.getElementById(hash)) {
+    showArticle(hash);
+  } else {
+    showList();
+  }
+});
+</script>
+</body>
+</html>
