@@ -302,19 +302,6 @@ nav a:hover {
   letter-spacing: -0.01em;
 }
 
-.project-arrow {
-  color: var(--muted);
-  font-size: 1.1rem;
-  transition: transform 0.2s;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.project-card:hover .project-arrow {
-  transform: translate(3px, -3px);
-  color: var(--fg);
-}
-
 .project-subtitle {
   font-size: 0.85rem;
   color: var(--muted);
@@ -327,6 +314,28 @@ nav a:hover {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+}
+
+.project-links {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.project-links a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.project-links a:hover {
+  border-color: var(--fg);
+  color: var(--fg);
+  opacity: 1;
 }
 
 .project-tag {
@@ -631,10 +640,9 @@ footer p {
   <p class="section-label fade-in">Projects</p>
   <div class="projects-grid">
 
-    <a href="https://wluforcaster.com" class="project-card fade-in" target="_blank" rel="noopener">
+    <div class="project-card fade-in">
       <div class="project-top">
         <span class="project-name">WLU Forecaster</span>
-        <span class="project-arrow">&nearr;</span>
       </div>
       <p class="project-subtitle">A forecasting tournament for W&L students — paid entry, probability submissions, Brier scores, live leaderboards.</p>
       <div class="project-tags">
@@ -643,12 +651,15 @@ footer p {
         <span class="project-tag">Stripe</span>
         <span class="project-tag">Supabase</span>
       </div>
-    </a>
+      <div class="project-links">
+        <a href="https://wluforcaster.com" target="_blank" rel="noopener">Website &nearr;</a>
+        <a href="https://github.com/pedroldrh/wlu-forecaster" target="_blank" rel="noopener">GitHub &nearr;</a>
+      </div>
+    </div>
 
-    <a href="https://coop-exchange-psi.vercel.app" class="project-card fade-in" target="_blank" rel="noopener">
+    <div class="project-card fade-in">
       <div class="project-top">
         <span class="project-name">Coop Exchange</span>
-        <span class="project-arrow">&nearr;</span>
       </div>
       <p class="project-subtitle">Campus meal swipe sharing app — OTP auth, real-time chat, proof uploads, ratings, and disputes.</p>
       <div class="project-tags">
@@ -656,12 +667,15 @@ footer p {
         <span class="project-tag">Expo</span>
         <span class="project-tag">Supabase</span>
       </div>
-    </a>
+      <div class="project-links">
+        <a href="https://coop-exchange-psi.vercel.app" target="_blank" rel="noopener">Website &nearr;</a>
+        <a href="https://github.com/pedroldrh/coop-exchange" target="_blank" rel="noopener">GitHub &nearr;</a>
+      </div>
+    </div>
 
-    <a href="https://github.com/pedroldrh/elohi" class="project-card fade-in" target="_blank" rel="noopener">
+    <div class="project-card fade-in">
       <div class="project-top">
         <span class="project-name">Elohi</span>
-        <span class="project-arrow">&nearr;</span>
       </div>
       <p class="project-subtitle">Full-stack Next.js application with polished UI, Supabase data flows, and transactional email support.</p>
       <div class="project-tags">
@@ -669,12 +683,15 @@ footer p {
         <span class="project-tag">Supabase</span>
         <span class="project-tag">ShadCN</span>
       </div>
-    </a>
+      <div class="project-links">
+        <a href="https://elohi.vercel.app" target="_blank" rel="noopener">Website &nearr;</a>
+        <a href="https://github.com/pedroldrh/elohi" target="_blank" rel="noopener">GitHub &nearr;</a>
+      </div>
+    </div>
 
-    <a href="https://github.com/pedroldrh/homelink-health" class="project-card fade-in" target="_blank" rel="noopener">
+    <div class="project-card fade-in">
       <div class="project-top">
         <span class="project-name">Homelink Health</span>
-        <span class="project-arrow">&nearr;</span>
       </div>
       <p class="project-subtitle">Website for a nonprofit home medical equipment lending library — equipment catalog, volunteer signups, donation and event pages.</p>
       <div class="project-tags">
@@ -682,12 +699,15 @@ footer p {
         <span class="project-tag">Tailwind CSS</span>
         <span class="project-tag">Framer Motion</span>
       </div>
-    </a>
+      <div class="project-links">
+        <a href="https://homelink-health.vercel.app" target="_blank" rel="noopener">Website &nearr;</a>
+        <a href="https://github.com/pedroldrh/homelink-health" target="_blank" rel="noopener">GitHub &nearr;</a>
+      </div>
+    </div>
 
-    <a href="https://ces-connect.vercel.app" class="project-card fade-in" target="_blank" rel="noopener">
+    <div class="project-card fade-in">
       <div class="project-top">
         <span class="project-name">CES Connect</span>
-        <span class="project-arrow">&nearr;</span>
       </div>
       <p class="project-subtitle">Platform connecting W&L entrepreneurship students with real-time features and Supabase-powered data.</p>
       <div class="project-tags">
@@ -696,12 +716,15 @@ footer p {
         <span class="project-tag">Supabase</span>
         <span class="project-tag">Tailwind CSS</span>
       </div>
-    </a>
+      <div class="project-links">
+        <a href="https://ces-connect.vercel.app" target="_blank" rel="noopener">Website &nearr;</a>
+        <a href="https://github.com/pedroldrh/ces-connect" target="_blank" rel="noopener">GitHub &nearr;</a>
+      </div>
+    </div>
 
-    <a href="https://connolly-apply.vercel.app" class="project-card fade-in" target="_blank" rel="noopener">
+    <div class="project-card fade-in">
       <div class="project-top">
         <span class="project-name">Connolly Apply</span>
-        <span class="project-arrow">&nearr;</span>
       </div>
       <p class="project-subtitle">Application portal for the Connolly Entrepreneurship Society — streamlined membership intake and review.</p>
       <div class="project-tags">
@@ -709,12 +732,15 @@ footer p {
         <span class="project-tag">Supabase</span>
         <span class="project-tag">Vercel</span>
       </div>
-    </a>
+      <div class="project-links">
+        <a href="https://connolly-apply.vercel.app" target="_blank" rel="noopener">Website &nearr;</a>
+        <a href="https://github.com/pedroldrh/connolly-apply" target="_blank" rel="noopener">GitHub &nearr;</a>
+      </div>
+    </div>
 
-    <a href="https://pedroldrh.github.io/dadsbreakfast-site/products.html" class="project-card fade-in" target="_blank" rel="noopener">
+    <div class="project-card fade-in">
       <div class="project-top">
         <span class="project-name">Dad's Breakfast</span>
-        <span class="project-arrow">&nearr;</span>
       </div>
       <p class="project-subtitle">DTC site for a grain-free granola brand with Shopify integration and storefront optimized for a local food business.</p>
       <div class="project-tags">
@@ -722,7 +748,11 @@ footer p {
         <span class="project-tag">Shopify</span>
         <span class="project-tag">E-Commerce</span>
       </div>
-    </a>
+      <div class="project-links">
+        <a href="https://pedroldrh.github.io/dadsbreakfast-site/products.html" target="_blank" rel="noopener">Website &nearr;</a>
+        <a href="https://github.com/pedroldrh/dadsbreakfast-site" target="_blank" rel="noopener">GitHub &nearr;</a>
+      </div>
+    </div>
 
   </div>
 </section>
