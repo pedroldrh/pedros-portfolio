@@ -195,6 +195,94 @@ nav a:hover {
   flex-shrink: 0;
 }
 
+/* Loader glyphs (dot-matrix state indicators) */
+.loader-glyph {
+  display: inline-grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  position: relative;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+.loader-glyph--sm { width: 20px; height: 20px; gap: 1.5px; }
+.loader-glyph--md { width: 26px; height: 26px; gap: 1.5px; }
+.loader-glyph .cell {
+  background: currentColor;
+  border-radius: 50%;
+  opacity: 0.12;
+  transform: scale(0.8);
+  will-change: opacity, transform;
+}
+.loader-glyph-triangle {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+.loader-glyph--thinking .cell {
+  color: #22c55e;
+  animation: glyphThinkingPulse 1.8s ease-in-out infinite;
+}
+@keyframes glyphThinkingPulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.82); }
+  50%      { opacity: 1;   transform: scale(1); }
+}
+.loader-glyph--thinking .cell[data-ring="0"] { animation-delay: 0s; }
+.loader-glyph--thinking .cell[data-ring="1"] { animation-delay: 0.28s; }
+.loader-glyph--thinking .cell[data-ring="2"] { animation-delay: 0.56s; }
+
+.loader-glyph--reading .cell {
+  color: #ef4444;
+  opacity: 0.14;
+  transform: scale(0.82);
+}
+.loader-glyph--reading .cell.vertex {
+  animation: glyphReadingPulse 1.6s ease-in-out infinite;
+}
+@keyframes glyphReadingPulse {
+  0%, 100% { opacity: 0.5;  transform: scale(0.9); }
+  50%      { opacity: 1;    transform: scale(1.25); }
+}
+.loader-glyph--reading .loader-glyph-triangle line {
+  stroke: #ef4444;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-opacity: 0.35;
+  animation: glyphLineGlow 1.6s ease-in-out infinite;
+}
+@keyframes glyphLineGlow {
+  0%, 100% { stroke-opacity: 0.35; }
+  50%      { stroke-opacity: 1; }
+}
+
+.loader-glyph--analysing .cell {
+  color: #60a5fa;
+  border-radius: 1px;
+  clip-path: polygon(18% 0%, 70% 50%, 18% 100%, 0% 100%, 52% 50%, 0% 0%);
+  animation: glyphAnalyseWave 2s ease-in-out infinite;
+}
+@keyframes glyphAnalyseWave {
+  0%, 100% { opacity: 0.15; transform: scale(0.85); }
+  35%      { opacity: 1;    transform: scale(1.05); }
+  70%      { opacity: 0.15; transform: scale(0.85); }
+}
+
+.loader-glyph--debugging .cell {
+  color: #a855f7;
+  border-radius: 2px;
+  animation: glyphDebugBreathe 1.9s ease-in-out infinite;
+}
+@keyframes glyphDebugBreathe {
+  0%, 100% { opacity: 0.15; transform: scale(0.82); }
+  50%      { opacity: 1;    transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-glyph .cell, .loader-glyph-triangle line { animation: none !important; }
+}
+
 .cta-row {
   display: flex;
   gap: 16px;
@@ -409,6 +497,12 @@ nav a:hover {
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--muted);
+}
+
+#ai-workflow .leverage-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .leverage-insight {
@@ -645,7 +739,7 @@ footer p {
   <div class="hero-left">
     <h1 class="hero-intro fade-in">Get in touch!</h1>
     <div class="hero-currently fade-in">
-      <span><span class="dot"></span> Math & Econ at Washington and Lee</span>
+      <span><span class="hero-status" aria-hidden="true"></span> Math & Econ at Washington and Lee</span>
       <span>Interested in AI, foundations of math & theoretical physics</span>
       <span>Love playing bullet chess &mdash; <a href="https://www.chess.com/member/truenus00" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--border);">Truenus00</a></span>
     </div>
@@ -876,47 +970,47 @@ footer p {
 
   <div class="leverage-examples fade-in">
 
-    <div class="leverage-example">
+    <div class="leverage-example" data-glyph="thinking">
       <span class="leverage-field">Persistent Memory</span>
       <p class="leverage-insight">A structured markdown knowledge base that carries context between conversations &mdash; project references, tech stacks, feedback rules, and my preferences. Without it, every conversation starts from zero. With it, the AI knows my stack, my deploy flags, and the mistakes we've already solved.</p>
     </div>
 
-    <div class="leverage-example">
+    <div class="leverage-example" data-glyph="debugging">
       <span class="leverage-field">Cross-Project Error Tracking</span>
       <p class="leverage-insight">Every coding error gets logged with the project, message, fix, and category. When the same error shows up twice across any project, the AI researches the root cause and writes a permanent prevention rule. A Supabase RLS mistake in one project automatically prevents the same mistake in every future one.</p>
     </div>
 
-    <div class="leverage-example">
+    <div class="leverage-example" data-glyph="debugging">
       <span class="leverage-field">Git Safety Guards</span>
       <p class="leverage-insight">A hook intercepts every shell command before execution. It blocks pushes from the wrong directory, scans staged diffs for hardcoded API keys, and warns before removing code without checking for usages. Built after I accidentally committed a Supabase service role key that triggered a GitHub secret scanning alert.</p>
     </div>
 
-    <div class="leverage-example">
+    <div class="leverage-example" data-glyph="reading">
       <span class="leverage-field">gstack &mdash; Headless Browser</span>
       <p class="leverage-insight">A persistent headless Chromium daemon that gives the AI a real web browser at ~100ms per command. It can navigate documentation, inspect deployed sites, fill forms, take screenshots, and verify that a page actually looks right &mdash; without switching to a separate tool or relying on stale training data.</p>
     </div>
 
-    <div class="leverage-example">
+    <div class="leverage-example" data-glyph="analysing">
       <span class="leverage-field">Automated Retrospectives</span>
       <p class="leverage-insight">Time-based hooks track active session days and trigger self-reviews automatically. After 3 active days: the AI reviews its memory for staleness and scans the learning log for patterns. After 7 days: a full engineering retrospective analyzing commit history, work patterns, and code quality. Self-improvement only works if it's enforced.</p>
     </div>
 
-    <div class="leverage-example">
+    <div class="leverage-example" data-glyph="analysing">
       <span class="leverage-field">Memory Scoring</span>
       <p class="leverage-insight">Every time a memory file is referenced, it's logged with a timestamp. A scoring script calculates usage frequency. Memories with zero hits after 14 days get flagged for review &mdash; updated to be more findable or deleted as stale. Memory that grows forever becomes noise; this keeps the knowledge base lean.</p>
     </div>
 
-    <div class="leverage-example">
+    <div class="leverage-example" data-glyph="reading">
       <span class="leverage-field">Living Instruction File</span>
       <p class="leverage-insight">A single config file loaded at the start of every session that defines how the AI works with me. Mine specifies: always use Next.js (never Vite), deploy with <code style="font-family:var(--sans);font-size:0.9em;background:var(--bg);padding:2px 5px;border-radius:3px;">vercel --yes --prod</code>, check Supabase RLS policies before diagnosing any data bug, never push from the home directory, and cap input widths at max-w-md. It also maintains a learning log &mdash; every mistake gets recorded so it's never repeated across sessions.</p>
     </div>
 
-    <div class="leverage-example">
+    <div class="leverage-example" data-glyph="debugging">
       <span class="leverage-field">Mistake Pattern Detection</span>
       <p class="leverage-insight">Six categorized patterns extracted from a learning log: check-before-removing, secret hygiene, wrong-directory operations, Supabase assumptions, follow-instructions-fully, and UI anti-patterns. Each has a documented prevention. When 3+ instances of a category accumulate, a new automated guard gets built.</p>
     </div>
 
-    <div class="leverage-example">
+    <div class="leverage-example" data-glyph="thinking">
       <span class="leverage-field">Superpowers &amp; Skills CLI</span>
       <p class="leverage-insight">14+ workflow skills that enforce disciplined development: brainstorming before building, TDD before implementation, systematic debugging over guessing, verification before claiming completion. Plus an open ecosystem for discovering and installing community-built agent skills on demand.</p>
     </div>
@@ -946,6 +1040,81 @@ footer p {
   'use strict';
 
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Build a dot-matrix loader glyph (thinking / reading / analysing / debugging)
+  function buildGlyph(type, size) {
+    var wrap = document.createElement('span');
+    wrap.className = 'loader-glyph loader-glyph--' + size + ' loader-glyph--' + type;
+    wrap.setAttribute('aria-hidden', 'true');
+
+    var SIZE = 5;
+    for (var y = 0; y < SIZE; y++) {
+      for (var x = 0; x < SIZE; x++) {
+        var cell = document.createElement('span');
+        cell.className = 'cell';
+
+        if (type === 'thinking') {
+          var ring = Math.max(Math.abs(x - 2), Math.abs(y - 2));
+          cell.setAttribute('data-ring', ring);
+        }
+        if (type === 'reading') {
+          var v = [[1, 0], [4, 2], [1, 4]];
+          for (var i = 0; i < v.length; i++) {
+            if (v[i][0] === x && v[i][1] === y) {
+              cell.classList.add('vertex');
+              break;
+            }
+          }
+        }
+        if (type === 'analysing') {
+          cell.style.animationDelay = ((x + y) * 0.11).toFixed(3) + 's';
+        }
+        if (type === 'debugging') {
+          cell.style.animationDelay = ((x + y) * 0.08).toFixed(3) + 's';
+        }
+
+        wrap.appendChild(cell);
+      }
+    }
+
+    if (type === 'reading') {
+      var svgNS = 'http://www.w3.org/2000/svg';
+      var svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('class', 'loader-glyph-triangle');
+      svg.setAttribute('viewBox', '0 0 100 100');
+      svg.setAttribute('preserveAspectRatio', 'none');
+      function pct(i) { return ((i * 17.4 + 7.2) / 84) * 100; }
+      var vertices = [[1, 0], [4, 2], [1, 4]];
+      var pts = vertices.map(function(p) { return [pct(p[0]), pct(p[1])]; });
+      for (var j = 0; j < 3; j++) {
+        var line = document.createElementNS(svgNS, 'line');
+        var a = pts[j];
+        var b = pts[(j + 1) % 3];
+        line.setAttribute('x1', a[0].toFixed(2));
+        line.setAttribute('y1', a[1].toFixed(2));
+        line.setAttribute('x2', b[0].toFixed(2));
+        line.setAttribute('y2', b[1].toFixed(2));
+        line.style.animationDelay = (j * 0.15) + 's';
+        svg.appendChild(line);
+      }
+      wrap.appendChild(svg);
+    }
+
+    return wrap;
+  }
+
+  // Hero live status indicator
+  var heroStatus = document.querySelector('.hero-status');
+  if (heroStatus) {
+    heroStatus.appendChild(buildGlyph('thinking', 'sm'));
+  }
+
+  // AI workflow section glyphs
+  document.querySelectorAll('#ai-workflow .leverage-example[data-glyph]').forEach(function(ex) {
+    var type = ex.getAttribute('data-glyph');
+    var field = ex.querySelector('.leverage-field');
+    if (field) field.insertBefore(buildGlyph(type, 'md'), field.firstChild);
+  });
 
   // Fade-in on scroll
   var els = document.querySelectorAll('.fade-in');
